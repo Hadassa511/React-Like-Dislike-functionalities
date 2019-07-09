@@ -1,0 +1,78 @@
+import React, { Component } from "react";
+
+export default class Posts extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      likeCount: 100,
+      likeClicked: false,
+      dislikeCount: 42,
+      dislikeClicked: false
+    };
+    this.onLikeClick = this.onLikeClick.bind(this);
+    this.onDislikeClick = this.onDislikeClick.bind(this);
+  }
+  onLikeClick() {
+    if (!this.state.likeClicked) {
+      this.setState((prevState, props) => {
+        return {
+          likeCount: prevState.likeCount + 1,
+          likeClicked: true
+        };
+      });
+    } else {
+      this.setState((prevState, props) => {
+        return {
+          likeCount: prevState.likeCount - 1,
+          likeClicked: false
+        };
+      });
+    }
+  }
+
+  onDislikeClick() {
+    if (!this.state.dislikeClicked) {
+      this.setState((prevState, props) => {
+        return {
+          dislikeCount: prevState.dislikeCount + 1,
+          dislikeClicked: true
+        };
+      });
+    } else {
+      this.setState((prevState, props) => {
+        return {
+          dislikeCount: prevState.dislikeCount - 1,
+          dislikeClicked: false
+        };
+      });
+    }
+  }
+  render() {
+    return (
+      <div>
+        <span className="likes-counter">
+          <button
+            onClick={this.onLikeClick}
+            className={`liked-button ${this.state.clicked ? "liked" : ""}`}
+          >
+            {" "}
+            Like | {this.state.likeCount}{" "}
+          </button>
+        </span>
+
+        <span className="dislikes-counter">
+          <button
+            onClick={this.onDislikeClick}
+            className={`dislike-button ${
+              this.state.dislikeClicked ? "disliked" : ""
+            }`}
+          >
+            {" "}
+            Dislike | {this.state.dislikeCount}{" "}
+          </button>
+        </span>
+      </div>
+    );
+  }
+}
